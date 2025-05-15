@@ -1,0 +1,14 @@
+query {
+  localization {
+    country {
+      currency {
+        isoCode
+        name
+        symbol
+      }
+      isoCode
+      name
+      unitSystem
+    }
+  }
+}
