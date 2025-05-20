@@ -948,7 +948,7 @@ function parseArgs(args) {
   var name = void 0;
   var variables = void 0;
   var selectionSetCallback = void 0;
-  var internationalizationDirective = null;
+  var internationalizationDirective = void 0;
 
   // Handle the case when internationalizationDirective is the last parameter
   if (args.length > 0 && typeof args[args.length - 1] === 'string' && args[args.length - 1].includes('inContext')) {
