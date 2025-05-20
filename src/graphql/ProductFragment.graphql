@@ -11,6 +11,42 @@ fragment ProductFragment on Product {
   vendor
   publishedAt
   onlineStoreUrl
+  requiresSellingPlan
+  sellingPlanGroups(first: 2) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        name
+        options {
+          name
+          values
+        }
+        sellingPlans(first: 3) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              name
+              description
+              recurringDeliveries
+              options {
+                name
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   options {
     name
     values
