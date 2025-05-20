@@ -22,10 +22,6 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 */
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 function join() {
   for (var _len = arguments.length, fields = Array(_len), _key = 0; _key < _len; _key++) {
     fields[_key] = arguments[_key];
@@ -952,16 +948,25 @@ function parseArgs(args) {
   var name = void 0;
   var variables = void 0;
   var selectionSetCallback = void 0;
-  var internationalizationDirective = void 0;
+  var internationalizationDirective = null;
 
-  if (args.length === 4) {
-    var _args = slicedToArray(args, 4);
+  // Handle the case when internationalizationDirective is the last parameter
+  if (args.length > 0 && typeof args[args.length - 1] === 'string' && args[args.length - 1].includes('inContext')) {
+    internationalizationDirective = args[args.length - 1];
+    // Remove the internationalizationDirective from args for further processing
+    args = args.slice(0, args.length - 1);
+  }
 
-    name = _args[0];
-    variables = _args[1];
-    selectionSetCallback = _args[2];
-    internationalizationDirective = _args[3];
-  } else if (args.length === 3 && args[2] !== undefined && args[2].indexOf('inContext')) {
+  // Now process remaining args using original logic
+  if (args.length === 3) {
+    var _args = args;
+
+    var _args2 = slicedToArray(_args, 3);
+
+    name = _args2[0];
+    variables = _args2[1];
+    selectionSetCallback = _args2[2];
+  } else if (args.length === 2) {
     if (Object.prototype.toString.call(args[0]) === '[object String]') {
       name = args[0];
       variables = null;
@@ -971,28 +976,12 @@ function parseArgs(args) {
     }
 
     selectionSetCallback = args[1];
-    internationalizationDirective = args[2];
-  } else if (args.length === 2 && args[1] !== undefined && Object.prototype.toString.call(args[1]) === '[object String]' && args[1].indexOf('inContext')) {
-    selectionSetCallback = args[0];
-    internationalizationDirective = args[1];
-    name = null;
-  } else if (args.length === 2 || args.length === 3 && args[2] === undefined) {
-    if (Object.prototype.toString.call(args[0]) === '[object String]') {
-      name = args[0];
-      variables = null;
-    } else if (Array.isArray(args[0])) {
-      variables = args[0];
-      name = null;
-    }
-    selectionSetCallback = args[1];
-    internationalizationDirective = null;
   } else {
     selectionSetCallback = args[0];
-    internationalizationDirective = null;
     name = null;
   }
 
-  return { name: name, variables: variables, selectionSetCallback: selectionSetCallback, internationalizationDirective: internationalizationDirective };
+  return { name: name, variables: variables, selectionSetCallback: selectionSetCallback };
 }
 
 var VariableDefinitions = function () {
@@ -2192,8 +2181,5 @@ var Client = function () {
   return Client;
 }();
 
-exports.ClassRegistry = ClassRegistry;
-exports['default'] = Client;
-exports.GraphModel = GraphModel;
-exports.decode = decode;
-//# sourceMappingURL=index.js.map
+export { ClassRegistry, GraphModel, decode };export default Client;
+//# sourceMappingURL=index.es.js.map
