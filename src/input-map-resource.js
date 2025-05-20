@@ -236,6 +236,10 @@ function mapLineItemToLine(lineItem) {
     line.merchandiseId = lineItem.variantId;
   }
 
+  if (typeof lineItem.sellingPlanId !== 'undefined') {
+    line.sellingPlanId = lineItem.sellingPlanId;
+  }
+
   if (Object.keys(line).length === 0) {
     return null;
   }

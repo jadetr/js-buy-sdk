@@ -981,7 +981,7 @@ function parseArgs(args) {
     name = null;
   }
 
-  return { name: name, variables: variables, selectionSetCallback: selectionSetCallback };
+  return { name: name, variables: variables, selectionSetCallback: selectionSetCallback, internationalizationDirective: internationalizationDirective };
 }
 
 var VariableDefinitions = function () {
